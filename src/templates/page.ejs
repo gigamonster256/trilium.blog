@@ -36,7 +36,6 @@
 const logoWidth = subRoot.note.getLabelValue("shareLogoWidth");
 const logoHeight = subRoot.note.getLabelValue("shareLogoHeight");
 const mobileLogoHeight = logoHeight && logoWidth ? 32 / (logoWidth / logoHeight) : "";
-const shareRootLink = subRoot.note.hasLabel("shareRootLink") ? subRoot.note.getLabelValue("shareRootLink") : `./${subRoot.note.noteId}`;
 const currentTheme = note.getLabel("shareTheme") === "light" ? "light" : "dark";
 const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
 const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
@@ -62,7 +61,7 @@ content = content.replaceAll(headingRe, (...match) => {
     }
     </script>
 <div id="mobile-header">
-    <a href="<%= shareRootLink %>">
+    <a href="/">
         <% if (subRoot.note.hasRelation("shareLogo")) { %>
             <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/image.png" width="32" height="<%= mobileLogoHeight %>" alt="Logo" />
         <% } %>
@@ -74,7 +73,7 @@ content = content.replaceAll(headingRe, (...match) => {
     <div id="left-pane">
         <div id="navigation">
             <div id="site-header">
-                <a href="<%= shareRootLink %>">
+                <a href="/">
                     <% if (subRoot.note.hasRelation("shareLogo")) { %>
                         <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/image.png" width="<%= logoWidth %>" height="<%= logoHeight %>" alt="Logo" />
                     <% } %>
