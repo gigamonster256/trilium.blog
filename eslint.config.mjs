@@ -48,14 +48,6 @@ export default [
       "accessor-pairs": "error",
       "block-spacing": ["error", "never"],
 
-      "brace-style": [
-        "error",
-        "stroustrup",
-        {
-          allowSingleLine: true,
-        },
-      ],
-
       curly: ["error", "multi-line", "consistent"],
       "dot-location": ["error", "property"],
       "dot-notation": "error",
@@ -127,14 +119,6 @@ export default [
       "no-var": "error",
       "no-whitespace-before-property": "error",
 
-      "object-curly-spacing": [
-        "error",
-        "never",
-        {
-          objectsInObjects: false,
-        },
-      ],
-
       "object-property-newline": [
         "error",
         {
@@ -142,27 +126,7 @@ export default [
         },
       ],
 
-      "operator-linebreak": [
-        "error",
-        "none",
-        {
-          overrides: {
-            "?": "before",
-            ":": "before",
-            "&&": "before",
-          },
-        },
-      ],
-
       "prefer-const": "error",
-
-      "quote-props": [
-        "error",
-        "consistent-as-needed",
-        {
-          keywords: true,
-        },
-      ],
 
       quotes: [
         "error",

@@ -4,7 +4,6 @@
 const data = `<h2>Frontend API</h2><p>The frontend api supports two styles, regular scripts that are run with the current app and note context, and widgets that export an object to Trilium to be used in the UI. In both cases, the frontend api of Trilium is available to scripts running in the frontend context as global variable <code>api</code>. The members and methods of the api can be seen on the <a href="https://zadam.github.io/trilium/frontend_api/FrontendScriptApi.html">FrontendScriptApi </a>page.</p><h3>Scripts</h3><p>Scripts don't have any special requirements. They can be run at will using the execute button in the UI or they can be configured to run at certain times using <a href="https://github.com/zadam/trilium/wiki/Attributes">Attributes</a> on the note containing the script.</p><h4>Global Events</h4><p>This attribute is called <code>#run</code> and it can have any of the following values:</p><ul><li><code>frontendStartup</code> - executes on frontend upon startup.</li><li><code>mobileStartup</code> - executes on mobile frontend upon startup.</li><li><code>backendStartup</code> - executes on backend upon startup.</li><li><code>hourly</code> - executes once an hour on backend.</li><li><code>daily</code> - executes once a day on backend.</li></ul><h4>Entity Events</h4><p>These events are triggered by certain <a href="https://github.com/zadam/trilium/wiki/Attributes#relations">relations</a> to other notes. Meaning that the script is triggered only if the note has this script attached to it through relations (or it can inherit it).</p><ul><li><code>runOnNoteCreation</code> - executes when note is created on backend.</li><li><code>runOnNoteTitleChange</code> - executes when note title is changed (includes note creation as well).</li><li><code>runOnNoteContentChange</code> - executes when note content is changed (includes note creation as well).</li><li><code>runOnNoteChange</code> - executes when note is changed (includes note creation as well).</li><li><code>runOnNoteDeletion</code> - executes when note is being deleted.</li><li><code>runOnBranchCreation</code> - executes when a branch is created. Branch is a link between parent note and child note and is created e.g. when cloning or moving note.</li><li><code>runOnBranchDeletion</code> - executes when a branch is delete. Branch is a link between parent note and child note and is deleted e.g. when moving note (old branch/link is deleted).</li><li><code>runOnChildNoteCreation</code> - executes when new note is created under this note.</li><li><code>runOnAttributeCreation</code> - executes when new attribute is created under this note.</li><li><code>runOnAttributeChange</code> - executes when attribute is changed under this note.</li></ul><h3>Widgets</h3><p>Conversely to scripts, widgets do have some specific requirements in order to work. A widget must:</p><ul><li>Extend <a href="https://zadam.github.io/trilium/frontend_api/BasicWidget.html">BasicWidget </a>or one of it's subclasses.</li><li>Create a new instance and assign it to <code>module.exports</code>.</li><li>Define a <code>parentWidget</code> member to determine where it should be displayed.</li><li>Define a <code>position</code> (integer) that determines the location via sort order.</li><li>Have a <code>#widget</code> attribute on the containing note.</li><li>Create, render, and return your element in the render function.<ul><li>For <a href="https://zadam.github.io/trilium/frontend_api/BasicWidget.html">BasicWidget </a>and <a href="https://zadam.github.io/trilium/frontend_api/NoteContextAwareWidget.html">NoteContextAwareWidget</a> you should create <code>this.$widget</code> and render it in <code>doRender()</code>.</li><li>For <a href="https://zadam.github.io/trilium/frontend_api/RightPanelWidget.html">RightPanelWidget </a>the <code>this.$widget</code> and <code>doRender()</code> are already handled and you should instead return the value in <code>doRenderBody()</code>.</li></ul></li></ul><h4>parentWidget</h4><ul><li><code>left-pane</code> - This renders the widget on the left side of the screen where the note tree lives.</li><li><code>center-pane</code> - This renders the widget in the center of the layout in the same location that notes and splits appear.</li><li><code>note-detail-pane</code> - This renders the widget <i>with</i> the note in the center pane. This means it can appear multiple times with splits.</li><li><code>right-pane</code> - This renders the widget to the right of any opened notes.</li></ul><h4>Tutorial</h4><p>For more information on building widgets, take a look at <a href="#root/WqBnya4Ye8rS/wmgYY4gYKq69/MLpHDpX0NhDg/X7pxYpiu0lgU">Widget Basics</a>.</p>`;
 const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
 
-
 // const slugify = (text: string) => text.toLowerCase().replace(/[^\w]/g, "-");
 // const modified = data2.replaceAll(headingRe, (...match: RegExpMatchArray) => {
 //     match[0] = match[0].replace(match[3], `<a id="${slugify(match[2])}" class="toc-anchor" name="${slugify(match[2])}" href="#${slugify(match[2])}">#</a>${match[3]}`);
@@ -13,37 +12,39 @@ const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
 
 // console.log(modified);
 
-
 const headingMatches = [...data.matchAll(headingRe)];
 
 interface ToCEntry {
-    level: number;
-    name: string;
-    children: ToCEntry[];
+  level: number;
+  name: string;
+  children: ToCEntry[];
 }
 
 const level = (m: RegExpMatchArray) => parseInt(m[1].replace(/[<h>]+/g, ""));
 
 const toc: ToCEntry[] = [
-    {
-        level: level(headingMatches[0]),
-        name: headingMatches[0][2],
-        children: []
-    }
+  {
+    level: level(headingMatches[0]),
+    name: headingMatches[0][2],
+    children: [],
+  },
 ];
 const last = (arr = toc) => arr[arr.length - 1];
-const makeEntry = (m: RegExpMatchArray): ToCEntry => ({level: level(m), name: m[2], children: []});
+const makeEntry = (m: RegExpMatchArray): ToCEntry => ({
+  level: level(m),
+  name: m[2],
+  children: [],
+});
 
 const getLevelArr = (lvl: number, arr = toc): ToCEntry[] => {
-    if (arr[0].level === lvl) return arr;
-    const top = last(arr);
-    return top.children.length ? getLevelArr(lvl, top.children) : top.children;
+  if (arr[0].level === lvl) return arr;
+  const top = last(arr);
+  return top.children.length ? getLevelArr(lvl, top.children) : top.children;
 };
 
-
 for (let m = 1; m < headingMatches.length; m++) {
-    const target = getLevelArr(level(headingMatches[m]));
-    target.push(makeEntry(headingMatches[m]));
+  const target = getLevelArr(level(headingMatches[m]));
+  target.push(makeEntry(headingMatches[m]));
 }
 
 console.log(JSON.stringify(toc, null, 4));

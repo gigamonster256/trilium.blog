@@ -11,9 +11,8 @@
 
 @import "./mobile.css";
 
-
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /*
@@ -30,51 +29,51 @@ Accent Color Ideas
 */
 
 :root {
-    --background-primary: #333333;
-    --background-secondary: #1F1F1F;
-    --background-highlight: #484848;
-    --background-active: #777777;
-    --text-primary: #cccccc;
-    --text-heading: #cccccc;
-    --text-menu: #AAAAAA;
-    --text-link: #87CEFA;
-    --text-menu-active: #000000;
-    color-scheme: dark;
+  --background-primary: #333333;
+  --background-secondary: #1f1f1f;
+  --background-highlight: #484848;
+  --background-active: #777777;
+  --text-primary: #cccccc;
+  --text-heading: #cccccc;
+  --text-menu: #aaaaaa;
+  --text-link: #87cefa;
+  --text-menu-active: #000000;
+  color-scheme: dark;
 }
 
 body.theme-light {
-    --background-primary: #FFFFFF;
-    --background-secondary: #F3F3F3;
-    --background-highlight: #DDDDDD;
-    --background-active: #777777;
-    --text-primary: #000000;
-    --text-heading: #000000;
-    --text-menu: #333333;
-    --text-link: #0000ff;
-    color-scheme: light;
+  --background-primary: #ffffff;
+  --background-secondary: #f3f3f3;
+  --background-highlight: #dddddd;
+  --background-active: #777777;
+  --text-primary: #000000;
+  --text-heading: #000000;
+  --text-menu: #333333;
+  --text-link: #0000ff;
+  color-scheme: light;
 }
 
 body {
-    background: var(--background-primary);
-    font-family: 'Montserrat', 'Lucida Grande', 'Lucida Sans Unicode', arial, sans-serif;
-    line-height: 1.5;
-    color: var(--text-primary);
-    margin: 0;
+  background: var(--background-primary);
+  font-family: "Montserrat", "Lucida Grande", "Lucida Sans Unicode", arial,
+    sans-serif;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 a {
-    color: var(--text-link);
-    text-decoration: none;
+  color: var(--text-link);
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-pre, code, kbd, samp {
-    font-family: "JetBrains Mono", Consolas, monospace;
+pre,
+code,
+kbd,
+samp {
+  font-family: "JetBrains Mono", Consolas, monospace;
 }
-
-
-
-

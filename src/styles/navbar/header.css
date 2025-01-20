@@ -1,18 +1,17 @@
 #site-header {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 #site-header > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-
- /* The switch - the box around the slider */
+/* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
@@ -35,9 +34,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--text-primary);;
+  background-color: var(--text-primary);
   transition: 0.4s;
-    border-radius: 34px;
+  border-radius: 34px;
 }
 
 .slider::before {
@@ -49,8 +48,8 @@
   bottom: 4px;
   background-color: white;
   transition: 0.4s;
-    border-radius: 50%;
-    z-index: 2;
+  border-radius: 50%;
+  z-index: 2;
 }
 
 input:checked + .slider {
@@ -65,34 +64,35 @@ input:checked + .slider:before {
   transform: translateX(33px); /* whole width - slider width - 8px padding*/
 }
 
-
 .theme-selection {
-    display: flex;
-    align-items: center;
-   justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .theme-selection.no-transition .slider,
 .theme-selection.no-transition .slider::before,
 .theme-selection.no-transition .dark-icon,
 .theme-selection.no-transition .light-icon {
-    transition: none!important;
+  transition: none !important;
 }
-
 
 .theme-selection label {
-    position: relative;
+  position: relative;
 }
 
-.dark-icon, .light-icon {
-    display: flex;
-    opacity: 0;
-    transition: opacity 400ms ease, color 400ms ease;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 24px;
+.dark-icon,
+.light-icon {
+  display: flex;
+  opacity: 0;
+  transition:
+    opacity 400ms ease,
+    color 400ms ease;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 24px;
 }
 
 /*     input ~ .dark-icon {
@@ -100,50 +100,48 @@ input:checked + .slider:before {
 } */
 
 input:not(:checked) ~ .light-icon {
-    opacity: 1;
+  opacity: 1;
 }
 
 input:checked ~ .dark-icon {
-    opacity: 1;
+  opacity: 1;
 }
 
 /*     input:checked ~ .light-icon {
     display: none;
 } */
 
-
 .dark-icon {
-    left: 5px;
-    color: var(--text-primary);
+  left: 5px;
+  color: var(--text-primary);
 }
 
 .light-icon {
-    right: 5px;
-    color: var(--background-highlight);
+  right: 5px;
+  color: var(--background-highlight);
 }
 
-
 .search-item {
-    display: flex;
-    align-items: center;
-    position: relative;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .search-input {
-    color: var(--text-primary);
-    background: var(--background-highlight);
-    outline: 0;
-    border: 0;
-    flex: 1;
-    padding: 5px 5px 5px 32px;
-    width: 200px;
-    border-radius: 6px;
+  color: var(--text-primary);
+  background: var(--background-highlight);
+  outline: 0;
+  border: 0;
+  flex: 1;
+  padding: 5px 5px 5px 32px;
+  width: 200px;
+  border-radius: 6px;
 }
 
 .search-icon {
-    display: flex;
-    color: var(--text-primary);
-    position: absolute;
-    width: 20px;
-    left: 5px;
+  display: flex;
+  color: var(--text-primary);
+  position: absolute;
+  width: 20px;
+  left: 5px;
 }

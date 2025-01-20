@@ -1,18 +1,18 @@
 #main .swagger-ui .scheme-container {
-    background: var(--background-secondary);
+  background: var(--background-secondary);
 }
 
 #main .swagger-ui .opblock .opblock-section-header {
-    background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 #main .swagger-ui section.models {
-    border: 1px solid var(--background-highlight);
+  border: 1px solid var(--background-highlight);
 }
 
 #main .swagger-ui section.models .model-container,
 #main .swagger-ui .opblock-body pre.microlight {
-    background: var(--background-secondary) !important;
+  background: var(--background-secondary) !important;
 }
 
 #main .swagger-ui,
@@ -24,9 +24,8 @@
 #main .swagger-ui .opblock-title_normal p,
 #main .swagger-ui .response-col_status,
 #main .swagger-ui .response-col_links {
-    color: var(--text-primary);
+  color: var(--text-primary);
 }
-
 
 #main .swagger-ui .opblock .opblock-summary-operation-id,
 #main .swagger-ui .opblock .opblock-summary-path,
@@ -40,87 +39,83 @@
 #main .swagger-ui .parameter__name,
 #main .swagger-ui thead tr td.col_header,
 #main .swagger-ui .model-title {
-    color: var(--text-heading);
+  color: var(--text-heading);
 }
 
 #main .swagger-ui .model .property.primitive {
-    color: var(--text-menu);
+  color: var(--text-menu);
 }
 
 #main .swagger-ui .prop-type {
-    color: var(--text-link);
+  color: var(--text-link);
 }
 
 #main .swagger-ui svg {
-    fill: var(--text-heading);
+  fill: var(--text-heading);
 }
 
-
 #main .swagger-ui .model-toggle::after {
-    filter: invert(100%);
+  filter: invert(100%);
 }
 
 #main .swagger-ui .btn {
-    border: 2px solid var(--text-heading);
-    transition: transform 200ms ease;
+  border: 2px solid var(--text-heading);
+  transition: transform 200ms ease;
 }
 
 #main .swagger-ui .btn:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 #main .swagger-ui input[disabled],
 #main .swagger-ui select[disabled],
 #main .swagger-ui textarea[disabled],
 #main .swagger-ui select {
-    background: rgba(0, 0, 0, 0.2);
-    color: var(--text-primary);
-    border: 2px solid rgba(0,0,0,0.3);
-    appearance: auto;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  appearance: auto;
 }
-
 
 #main .models > h4 {
-    margin: 5px 10px;
+  margin: 5px 10px;
 }
 
-
 #main .swagger-ui .opblock-summary-control {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 #main .swagger-ui .authorization__btn {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 .swagger-ui .info .title small {
-    top: 0;
-    padding: 4px 8px;
-    background: var(--background-highlight);
+  top: 0;
+  padding: 4px 8px;
+  background: var(--background-highlight);
 }
 
 #main .swagger-ui .info .title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #main .swagger-ui .info .title small pre {
-    color: var(--text-heading);
-    min-width: 0;
-    border: 0;
-    background: none;
+  color: var(--text-heading);
+  min-width: 0;
+  border: 0;
+  background: none;
 }
 
 #main .swagger-ui .info .title > span {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .swagger-ui .info .title small.version-stamp {
-    background: var(--background-highlight);
+  background: var(--background-highlight);
 }
-
 
 #main .swagger-ui h1,
 #main .swagger-ui h2,
@@ -128,9 +123,8 @@
 #main .swagger-ui h4,
 #main .swagger-ui h5,
 #main .swagger-ui h6 {
-    border: 0;
+  border: 0;
 }
-
 
 #main .swagger-ui input[type="email"],
 #main .swagger-ui input[type="file"],
@@ -138,6 +132,6 @@
 #main .swagger-ui input[type="search"],
 #main .swagger-ui input[type="text"],
 #main .swagger-ui textarea {
-    background-color: var(--background-highlight);
-    border: 0;
+  background-color: var(--background-highlight);
+  border: 0;
 }
