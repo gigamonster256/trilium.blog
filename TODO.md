@@ -14,7 +14,7 @@ This doc contains a list of TODOs taken from the code and organized. This _does 
 
 ## Styles
 
-- 
+-
 
 ## Templates
 
@@ -25,5 +25,5 @@ This doc contains a list of TODOs taken from the code and organized. This _does 
 
 - Create a logical set of attributes for setting open-graph/twitter metadata
 - Consider making book type notes explicitly required for full-link category
-    - This lets text type notes still have content but require clicking arrow to expand
+  - This lets text type notes still have content but require clicking arrow to expand
 - Find a way to better map template to notes and allow for automatically creating new ones
