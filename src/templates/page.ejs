@@ -8,9 +8,9 @@
     
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <% if (note.hasRelation("shareFavicon")) { %>
-        <link rel="shortcut icon" href="api/notes/<%= note.getRelation('shareFavicon').value %>/download">
+            <link rel="shortcut icon" href="api/notes/<%= note.getRelation('shareFavicon').value %>/download">
         <% } else { %>
-        <link rel="shortcut icon" href="../favicon.ico">
+            <link rel="shortcut icon" href="../favicon.ico">
         <% } %>
         <script src="../<%= appPath %>/share.js"></script>
         <% if (!note.isLabelTruthy("shareOmitDefaultCss")) { %>
@@ -134,12 +134,12 @@ content = content.replaceAll(headingRe, (...match) => {
                         <%
                         const action = note.type === "book" ? "getChildNotes" : "getVisibleChildNotes";
                         for (const childNote of note[action]()) {
-                            const isExternalLink = childNote.hasLabel("shareExternal") || childNote.hasLabel("shareExternalLink");
-                            const linkHref = isExternalLink ? childNote.getLabelValue("shareExternal") ?? childNote.getLabelValue("shareExternalLink") : `./${childNote.shareId}`;
-                            const target = isExternalLink ? ` target="_blank" rel="noopener noreferrer"` : "";
+                            const isExternalLink = childNote.hasLabel("shareExternalLink");
+                            const linkHref = isExternalLink ? childNote.getLabelValue("shareExternalLink") : `./${childNote.shareId}`;
+                            const target = isExternalLink ? ' target="_blank" rel="noopener noreferrer"' : "";
                         %>
                             <li>
-                                <a class="type-<%= childNote.type %>" href="<%= linkHref %>"<%= target %>><%= childNote.title %></a>
+                                <a class="type-<%= childNote.type %>" href="<%= linkHref %>"<%- target %>><%= childNote.title %></a>
                             </li>
                         <% } %>
                     </ul>
