@@ -1,19 +1,18 @@
 <%
-const slugify = (text) => text.toLowerCase().replace(/[^\w]/g, "-");
-const slug = slugify(entry.name);
+    const slugify = (text) => text.toLowerCase().replace(/[^\w]/g, "-"); 
+    const slug = slugify(entry.name); 
 %>
 
-
 <li>
-    <a href="#<%= slug %>">
-        <span><%= entry.name %></span>
-    </a>
+  <a href="#<%= slug %>">
+    <span><%= entry.name %></span>
+  </a>
 
-    <% if (entry.children.length) { %>
-        <ul>
-            <% for (const subentry of entry.children) { %>
-                <%- include('toc_item', {entry: subentry}) %>
-            <% } %>
-        </ul>
+  <% if (entry.children.length) { %>
+  <ul>
+    <% for (const subentry of entry.children) { %> 
+        <%- include('toc_item', {entry: subentry}) %> 
     <% } %>
+  </ul>
+  <% } %>
 </li>

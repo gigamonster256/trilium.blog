@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <% if (note.hasLabel("shareDescription")) { %>
-            <meta name="description" content="<%= note.getLabelValue('shareDescription') %>">
-        <% } %>
-    
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <% if (note.hasRelation("shareFavicon")) { %>
-            <link rel="shortcut icon" href="api/notes/<%= note.getRelation('shareFavicon').value %>/download">
-        <% } else { %>
-            <link rel="shortcut icon" href="../favicon.ico">
-        <% } %>
-        <script src="../<%= appPath %>/share.js"></script>
-        <% if (!note.isLabelTruthy("shareOmitDefaultCss")) { %>
-            <link href="../<%= assetPath %>/node_modules/normalize.css/normalize.css" rel="stylesheet">
-            <link href="../<%= assetPath %>/stylesheets/share.css" rel="stylesheet">
-        <% } %>
-        <% if (note.type === 'text' || note.type === 'book') { %>
-            <link href="../<%= assetPath %>/libraries/ckeditor/ckeditor-content.css" rel="stylesheet">
-        <% } %>
-        <% for (const cssRelation of note.getRelations("shareCss")) { %>
-            <link href="api/notes/<%= cssRelation.value %>/download" rel="stylesheet">
-        <% } %>
-        <% for (const jsRelation of note.getRelations("shareJs")) { %>
-            <script type="module" src="api/notes/<%= jsRelation.value %>/download"></script>
-        <% } %>
-        <% if (note.isLabelTruthy('shareDisallowRobotIndexing')) { %>
-            <meta name="robots" content="noindex,follow" />
-        <% } %>
-        <%- header %>
-        <title><%= note.title %></title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <% if (note.hasLabel("shareDescription")) { %>
+        <meta name="description" content="<%= note.getLabelValue('shareDescription') %>">
+    <% } %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if (note.hasRelation("shareFavicon")) { %>
+        <link rel="shortcut icon" href="api/notes/<%= note.getRelation('shareFavicon').value %>/download">
+    <% } else { %>
+        <link rel="shortcut icon" href="../favicon.ico">
+    <% } %>
+    <script src="../<%= appPath %>/share.js"></script>
+    <% if (!note.isLabelTruthy("shareOmitDefaultCss")) { %>
+        <link href="../<%= assetPath %>/node_modules/normalize.css/normalize.css" rel="stylesheet">
+        <link href="../<%= assetPath %>/stylesheets/share.css" rel="stylesheet">
+    <% } %>
+    <% if (note.type === 'text' || note.type === 'book') { %>
+        <link href="../<%= assetPath %>/libraries/ckeditor/ckeditor-content.css" rel="stylesheet">
+    <% } %>
+    <% for (const cssRelation of note.getRelations("shareCss")) { %>
+        <link href="api/notes/<%= cssRelation.value %>/download" rel="stylesheet">
+    <% } %>
+    <% for (const jsRelation of note.getRelations("shareJs")) { %>
+        <script type="module" src="api/notes/<%= jsRelation.value %>/download"></script>
+    <% } %>
+    <% if (note.isLabelTruthy('shareDisallowRobotIndexing')) { %>
+        <meta name="robots" content="noindex,follow" />
+    <% } %>
+    <%- header %>
+    <title><%= note.title %></title>
+</head>
 <%
-const logoWidth = subRoot.note.getLabelValue("shareLogoWidth");
-const logoHeight = subRoot.note.getLabelValue("shareLogoHeight");
-const mobileLogoHeight = logoHeight && logoWidth ? 32 / (logoWidth / logoHeight) : "";
-const currentTheme = note.getLabel("shareTheme") === "light" ? "light" : "dark";
-const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
-const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
-const headingMatches = [...content.matchAll(headingRe)];
-const slugify = (text) => text.toLowerCase().replace(/[^\w]/g, "-");
-content = content.replaceAll(headingRe, (...match) => {
-    match[0] = match[0].replace(match[3], `<a id="${slugify(match[2])}" class="toc-anchor" name="${slugify(match[2])}" href="#${slugify(match[2])}">#</a>${match[3]}`);
-    return match[0];
-});
+    const logoWidth = subRoot.note.getLabelValue("shareLogoWidth");
+    const logoHeight = subRoot.note.getLabelValue("shareLogoHeight");
+    const mobileLogoHeight = logoHeight && logoWidth ? 32 / (logoWidth / logoHeight) : "";
+    const currentTheme = note.getLabel("shareTheme") === "light" ? "light" : "dark";
+    const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
+    const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
+    const headingMatches = [...content.matchAll(headingRe)];
+    const slugify = (text) => text.toLowerCase().replace(/[^\w]/g, "-");
+    content = content.replaceAll(headingRe, (...match) => {
+        match[0] = match[0].replace(match[3], `<a id="${slugify(match[2])}" class="toc-anchor" name="${slugify(match[2])}" href="#${slugify(match[2])}">#</a>${match[3]}`);
+        return match[0];
+    });
 %>
 <body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>" data-ancestor-note-id="<%= subRoot.note.noteId %>">
-    <script>
-    const preference = localStorage.getItem("theme");
-    if (preference) {
-        if (preference === "dark") {
-            document.body.classList.add("theme-dark");
-            document.body.classList.remove("theme-light");
-        }
-        else {
-            document.body.classList.remove("theme-dark");
-            document.body.classList.add("theme-light");
-        }
+<script>
+const preference = localStorage.getItem("theme");
+if (preference) {
+    if (preference === "dark") {
+        document.body.classList.add("theme-dark");
+        document.body.classList.remove("theme-light");
     }
-    </script>
+    else {
+        document.body.classList.remove("theme-dark");
+        document.body.classList.add("theme-light");
+    }
+}
+</script>
 <div id="mobile-header">
     <a href="/">
         <% if (subRoot.note.hasRelation("shareLogo")) { %>

@@ -12,45 +12,45 @@ if (!package_json) {
 const rootDir = path.dirname(package_json);
 
 dotenv.config();
-if (!process.env.TRILIUM_ETAPI_TOKEN) {
-  throw new Error("TRILIUM_ETAPI_TOKEN not found in env");
-}
-if (process.env.TRILIUM_ETAPI_TOKEN) {
-  tepi.token(process.env.TRILIUM_ETAPI_TOKEN);
-}
+// if (!process.env.TRILIUM_ETAPI_TOKEN) {
+//   throw new Error("TRILIUM_ETAPI_TOKEN not found in env");
+// }
+// if (process.env.TRILIUM_ETAPI_TOKEN) {
+//   tepi.token(process.env.TRILIUM_ETAPI_TOKEN);
+// }
 
-if (!process.env.PAGE_TEMPLATE_ID) {
-  throw new Error("PAGE_TEMPLATE_ID not found in env");
-}
-if (!process.env.ITEM_TEMPLATE_ID) {
-  throw new Error("ITEM_TEMPLATE_ID not found in env");
-}
-if (!process.env.TOC_TEMPLATE_ID) {
-  throw new Error("TOC_TEMPLATE_ID not found in env");
-}
-const templateMap: Record<string, string> = {
-  page: process.env.PAGE_TEMPLATE_ID,
-  tree_item: process.env.ITEM_TEMPLATE_ID,
-  toc_item: process.env.TOC_TEMPLATE_ID,
-};
+// if (!process.env.PAGE_TEMPLATE_ID) {
+//   throw new Error("PAGE_TEMPLATE_ID not found in env");
+// }
+// if (!process.env.ITEM_TEMPLATE_ID) {
+//   throw new Error("ITEM_TEMPLATE_ID not found in env");
+// }
+// if (!process.env.TOC_TEMPLATE_ID) {
+//   throw new Error("TOC_TEMPLATE_ID not found in env");
+// }
+// const templateMap: Record<string, string> = {
+//   page: process.env.PAGE_TEMPLATE_ID,
+//   tree_item: process.env.ITEM_TEMPLATE_ID,
+//   toc_item: process.env.TOC_TEMPLATE_ID,
+// };
 
-async function sendTemplates() {
-  for (const template in templateMap) {
-    const templatePath = path.join(
-      rootDir,
-      "src",
-      "templates",
-      `${template}.ejs`,
-    );
-    const contents = fs.readFileSync(templatePath).toString();
-    await tepi.putNoteContentById(templateMap[template], contents);
-  }
-}
+// async function sendTemplates() {
+//   for (const template in templateMap) {
+//     const templatePath = path.join(
+//       rootDir,
+//       "src",
+//       "templates",
+//       `${template}.ejs`,
+//     );
+//     const contents = fs.readFileSync(templatePath).toString();
+//     await tepi.putNoteContentById(templateMap[template], contents);
+//   }
+// }
 
-if (process.argv.includes("--only-templates")) {
-  await sendTemplates();
-  process.exit(0);
-}
+// if (process.argv.includes("--only-templates")) {
+//   await sendTemplates();
+//   process.exit(0);
+// }
 
 const bundleMap = {
   "scripts.js": process.env.JS_NOTE_ID,
@@ -130,7 +130,7 @@ async function runBuild() {
     minify: process.argv.includes("--minify"),
   });
   const after = performance.now();
-  if (process.argv.includes("--templates")) await sendTemplates();
+  // if (process.argv.includes("--templates")) await sendTemplates();
   console.log(`Build actually took ${(after - before).toFixed(2)}ms`);
 }
 
