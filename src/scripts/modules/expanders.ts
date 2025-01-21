@@ -20,7 +20,11 @@ export default function setupExpanders() {
       if ((e.target as Element).closest(".submenu-item,.item") !== ex) return;
       e.preventDefault();
       e.stopPropagation();
-      const ul = ex.querySelector("ul")!;
+      const ul = ex.querySelector("ul");
+      if (!ul) {
+        console.error("No UL found in expander", ex);
+        return;
+      }
       ul.style.height = `${ul.scrollHeight}px`;
       setTimeout(() => ex.classList.toggle("expanded"), 1);
       setTimeout(() => (ul.style.height = ``), 200);

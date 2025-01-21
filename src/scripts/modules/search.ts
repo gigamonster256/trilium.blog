@@ -21,8 +21,13 @@ function buildResultItem(result: SearchResult) {
 }
 
 export default function setupSearch() {
-  const searchInput: HTMLInputElement =
-    document.querySelector(".search-input")!;
+  const searchInput: HTMLInputElement | null =
+    document.querySelector(".search-input");
+
+  if (!searchInput) {
+    console.error("No search input found");
+    return;
+  }
 
   searchInput.addEventListener(
     "keyup",

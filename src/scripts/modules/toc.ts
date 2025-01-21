@@ -13,15 +13,17 @@ export default function setupToC() {
   if (!toc) return;
 
   // Get all relevant elements
-  const sections = document
-    .getElementById("content")!
-    .querySelectorAll("h2, h3, h4, h5, h6");
+  const content = document.getElementById("content");
+  if (!content) return;
+  const sections = content.querySelectorAll("h2, h3, h4, h5, h6");
   const links = toc.querySelectorAll("a");
 
   // Setup smooth scroll on click
   for (const link of links) {
     link.addEventListener("click", (e) => {
-      const target = document.querySelector(link.getAttribute("href")!);
+      const href = link.getAttribute("href");
+      if (!href || !href.startsWith("#")) return;
+      const target = document.querySelector(href);
       if (!target) return;
       e.preventDefault();
       e.stopPropagation();

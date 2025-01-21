@@ -10,13 +10,21 @@ if (preference) {
 }
 
 export default function setupThemeSelector() {
-  const themeSwitch: HTMLInputElement = document.querySelector(
+  const themeSwitch: HTMLInputElement | null = document.querySelector(
     ".theme-selection input",
-  )!;
+  );
+
+  if (!themeSwitch) {
+    console.error("No theme switcher found");
+    return;
+  }
 
   if (preference) {
-    const themeSelection: HTMLDivElement =
-      document.querySelector(".theme-selection")!;
+    const themeSelection = document.querySelector(".theme-selection");
+    if (!themeSelection) {
+      console.error("No theme selection found");
+      return;
+    }
     themeSelection.classList.add("no-transition");
     themeSwitch.checked = preference === "dark";
     setTimeout(() => themeSelection.classList.remove("no-transition"), 400);

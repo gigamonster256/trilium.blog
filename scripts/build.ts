@@ -1,27 +1,37 @@
 import fs from "node:fs";
 import path from "node:path";
-// import {fileURLToPath} from "node:url";
 
 import dotenv from "dotenv";
 import tepi from "trilium-etapi";
 import * as esbuild from "esbuild";
 
-// const fileURL = fileURLToPath(import.meta.url);
-// let baseDir = path.dirname(fileURL);
-// if (fileURL.includes("esrun-")) baseDir = path.join(baseDir, "..", "..", "scripts");
-// const rootDir = path.join(baseDir, "..");
-// console.log(process.env.npm_package_json);
-const rootDir = path.dirname(process.env.npm_package_json!);
+const package_json = process.env.npm_package_json;
+if (!package_json) {
+  throw new Error("npm_package_json not found in env");
+}
+const rootDir = path.dirname(package_json);
 
 dotenv.config();
+if (!process.env.TRILIUM_ETAPI_TOKEN) {
+  throw new Error("TRILIUM_ETAPI_TOKEN not found in env");
+}
 if (process.env.TRILIUM_ETAPI_TOKEN) {
   tepi.token(process.env.TRILIUM_ETAPI_TOKEN);
 }
 
+if (!process.env.PAGE_TEMPLATE_ID) {
+  throw new Error("PAGE_TEMPLATE_ID not found in env");
+}
+if (!process.env.ITEM_TEMPLATE_ID) {
+  throw new Error("ITEM_TEMPLATE_ID not found in env");
+}
+if (!process.env.TOC_TEMPLATE_ID) {
+  throw new Error("TOC_TEMPLATE_ID not found in env");
+}
 const templateMap: Record<string, string> = {
-  page: process.env.PAGE_TEMPLATE_ID!,
-  tree_item: process.env.ITEM_TEMPLATE_ID!,
-  toc_item: process.env.TOC_TEMPLATE_ID!,
+  page: process.env.PAGE_TEMPLATE_ID,
+  tree_item: process.env.ITEM_TEMPLATE_ID,
+  toc_item: process.env.TOC_TEMPLATE_ID,
 };
 
 async function sendTemplates() {

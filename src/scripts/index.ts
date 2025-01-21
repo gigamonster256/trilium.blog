@@ -12,7 +12,7 @@ function $try<T extends (...a: unknown[]) => unknown>(
   try {
     func.apply(func, args);
   } catch (e) {
-    console.error(e); // eslint-disable-line no-console
+    console.error(e);
   }
 }
 
