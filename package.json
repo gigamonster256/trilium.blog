@@ -10,7 +10,7 @@
     "build-styles": "esrun scripts/build.ts -- --module=styles",
     "templates": "esrun scripts/build.ts -- --only-templates",
     "dist": "esrun scripts/build.ts -- --minify",
-    "test": "esrun src/scripts/test.ts"
+    "test": "esrun scripts/test.ts"
   },
   "author": "",
   "license": "ISC",

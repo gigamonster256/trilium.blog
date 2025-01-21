@@ -5,17 +5,24 @@
   inputs,
   ...
 }: {
-  languages.javascript.enable = true;
+  languages.javascript = {
+    enable = true;
+    package = pkgs.nodejs;
+    npm.install.enable = true;
+  };
+  languages.typescript.enable = true;
 
   pre-commit.hooks.eslint = {
     enable = true;
-    entry = "npx eslint";
+    package = null;
+    entry = "npx eslint --fix";
     files = "\\.(ts|js)$";
   };
 
   pre-commit.hooks.prettier = {
     enable = true;
-    entry = "npx prettier -w";
+    package = null;
+    entry = "npx prettier --write";
     files = "\\.(ts|m?js|json|ya?ml|md)$";
   };
 
