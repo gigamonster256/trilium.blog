@@ -39,5 +39,3 @@ async function runBuild(minify: boolean) {
 }
 
 runBuild(process.argv.includes("--minify")).catch(console.error);
-
-export { runBuild };

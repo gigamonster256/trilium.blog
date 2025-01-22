@@ -6,7 +6,7 @@
   "scripts": {
     "build": "esrun scripts/build.ts",
     "dist": "esrun scripts/build.ts -- --minify",
-    "deploy": "esrun scripts/deploy.ts",
+    "deploy": "npm run dist && esrun scripts/deploy.ts",
     "test": "esrun scripts/test.ts"
   },
   "author": "",

@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import tepi from "trilium-etapi";
-import esbuild from "esbuild";
-import { runBuild } from "./build.ts";
 
 const package_json = process.env.npm_package_json;
 if (!package_json) {
@@ -32,18 +30,30 @@ if (!process.env.TOC_TEMPLATE_ID) {
   throw new Error("TOC_TEMPLATE_ID not found in env");
 }
 
-const templateMap: Record<string, string> = {
+const templateMap = {
   page: process.env.PAGE_TEMPLATE_ID,
   tree_item: process.env.ITEM_TEMPLATE_ID,
   toc_item: process.env.TOC_TEMPLATE_ID,
 };
+
+if (!process.env.JS_NOTE_ID) {
+  console.log("JS_NOTE_ID not found in env");
+  console.log("Skipping upload of scripts.js");
+  throw new Error("JS_NOTE_ID not found in env");
+}
+
+if (!process.env.CSS_NOTE_ID) {
+  console.log("CSS_NOTE_ID not found in env");
+  console.log("Skipping upload of styles.css");
+  throw new Error("CSS_NOTE_ID not found in env");
+}
 
 const bundleMap = {
   "scripts.js": process.env.JS_NOTE_ID,
   "styles.css": process.env.CSS_NOTE_ID,
 };
 
-async function sendTemplates() {
+async function uploadTemplates() {
   for (const template in templateMap) {
     const templatePath = path.join(
       rootDir,
@@ -51,45 +61,29 @@ async function sendTemplates() {
       "templates",
       `${template}.ejs`,
     );
-    const contents = fs.readFileSync(templatePath).toString();
+    const contents = fs.readFileSync(templatePath);
     await tepi.putNoteContentById(templateMap[template], contents);
   }
 }
 
-async function uploadToBundles(result: esbuild.BuildResult) {
-  if (!result.metafile) return;
+async function uploadBundles() {
+  for (const bundle in bundleMap) {
+    const bundlePath = path.join(rootDir, "dist", bundle);
+    const noteId: string = bundleMap[bundle];
 
-  const bundles = Object.keys(result.metafile.outputs);
-  for (const bundle of bundles) {
-    const filename = path.basename(bundle);
-    const noteId = bundleMap[filename as keyof typeof bundleMap];
-    if (!noteId) {
-      console.info(`No note id found for bundle ${bundle}`);
-      continue;
-    }
-
-    const bundlePath = path.join(rootDir, bundle);
     if (!fs.existsSync(bundlePath)) {
       console.error(`Could not find bundle ${bundle}`);
       continue;
     }
 
-    const contents = fs.readFileSync(bundlePath).toString();
+    const contents = fs.readFileSync(bundlePath);
     await tepi.putNoteContentById(noteId, contents);
   }
 }
 
 async function main() {
-  if (process.argv.includes("--only-templates")) {
-    await sendTemplates();
-    process.exit(0);
-  }
-
-  const buildResult = await runBuild(true);
-  await uploadToBundles(buildResult);
-  if (process.argv.includes("--templates")) {
-    await sendTemplates();
-  }
+  await uploadTemplates();
+  await uploadBundles();
 }
 
 // Just run main directly
