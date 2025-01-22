@@ -5,18 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "esrun scripts/build.ts",
-    "build-all": "esrun scripts/build.ts -- --templates",
-    "build-scripts": "esrun scripts/build.ts -- --module=scripts",
-    "build-styles": "esrun scripts/build.ts -- --module=styles",
-    "templates": "esrun scripts/build.ts -- --only-templates",
     "dist": "esrun scripts/build.ts -- --minify",
+    "deploy": "esrun scripts/deploy.ts",
     "test": "esrun scripts/test.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.18.0",
-    "dotenv": "^16.4.7",
     "esbuild": "^0.24.2",
     "eslint": "^9.18.0",
     "esrun": "^3.2.26",
